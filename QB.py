@@ -46,35 +46,14 @@ def rating():
 	d = float(2.375 - (inter/att) * .25)
 
 	myList=[a, b, c, d]
-	newList=[]
 
+	listSum = float(0)
 	for i in myList:
 		if i > 2.375:
-			i = 2.375
-			newList.append(i)
-		else:
-			newList.append(i)
+			listSum += 2.375
 
-	newA = newList[0]
-	newB = newList[1]
-	newC = newList[2]
-	newD = newList[3]
-
-	rate = float(((newA + newB + newC + newD) / 6) * 100)
+	rate = float((listSum / 6) * 100)
 	roundRate = float(round(rate, 1))
 	return roundRate
 
-"""
-	if a > 2.375:
-		a = 2.375
-
-	if b > 2.375:
-		b = 2.375
-
-	if c > 2.375:
-		c =2.375
-
-	if d > 2.375:
-		d = 2.375	
-"""
 print (qb, "has a passer rating of", rating())
