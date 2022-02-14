@@ -1,29 +1,42 @@
 qb = input("Enter QB name:")
 
-try:
-	comp = int(input("Enter number of completions:"))
-	att = int(input("Enter number of attempts:"))
-	yard = int(input("Enter number of passing yards:"))
-	td = int(input("Enter number of passing TDs:"))
-	inter = int(input("Enter number of interceptions:"))
+# Creating a "helper" function to loop through each integer input variable from user to validate it is truely an int.
+def userInput(strname) -> int:
+	while True:
+		try:
+			num = int(input("Enter number of %s: " % strname))
+			return num
+			break
+		except ValueError:
+			print("Invalid")
 
-except TypeError:
-	print("Input for Completions, Attempts, Yards, Touchdowns and Interceptions must all be of type Int. Exiting Program")
-	quit()
+# Creating a "helper" function to create the logic of must meet criteria
+def rules(comp, att, td, inter):
+	if (comp > att):
+		print("The number of completions cannot exceed the number of attempts. Please re-enter these values")
+		comp = userInput("completions")
+		att = userInput("attempts")
 
-except ValueError:
-	print("You must enter a valid integer. Exiting program")
-	quit()
+	if (td > comp):
+		print("The number of touchdowns cannot exceed the number of completions. Please re-enter these values")
+		comp = userInput("completions")
+		td = userInput("passing TDs")
 
-if (comp > att):
-	print("The number of completions cannot exceed the number of attempts. Exiting program")
-	quit()
-if (td > comp):
-	print("The number of touchdowns cannot exceed the number of completions. Exiting program")
-	quit()
-if (inter > att):
-	print("The number of interceptions cannot exceed the number of attempts.Exiting program")
-	quit()
+	if (inter > att):
+		print("The number of interceptions cannot exceed the number of attempts. Please re-enter these values")
+		inter = userInput("interceptions")
+		att = userInput("attempts")
+
+# Assigning the variables by function. Sending the type of verbiage to function for user display.
+att = userInput("attempts")
+comp = userInput("completions")
+td = userInput("passing TDs")
+inter = userInput("interceptions")
+yard = userInput("passing yards")
+
+# Now that we validated all user input is in fact type integer we can verify it against our rules function.
+rules(comp, att, td, inter)
+
 
 
 def rating():
@@ -32,40 +45,17 @@ def rating():
 	c = float((td/att) * 20)
 	d = float(2.375 - (inter/att) * .25)
 
-	myList=[]
-	newList=[]
-	myList.append(a)
-	myList.append(b)
-	myList.append(c)
-	myList.append(d)
+	myList=[a, b, c, d]
 
+	listSum = float(0)
 	for i in myList:
 		if i > 2.375:
-			i = 2.375
-			newList.append(i)
+			listSum += 2.375
 		else:
-			newList.append(i)
+			listSum +=i 
 
-	newA = newList[0]
-	newB = newList[1]
-	newC = newList[2]
-	newD = newList[3]
-
-	rate = float(((newA + newB + newC + newD) / 6) * 100)
+	rate = float((listSum / 6) * 100)
 	roundRate = float(round(rate, 1))
 	return roundRate
 
-"""
-	if a > 2.375:
-		a = 2.375
-
-	if b > 2.375:
-		b = 2.375
-
-	if c > 2.375:
-		c =2.375
-
-	if d > 2.375:
-		d = 2.375	
-"""
 print (qb, "has a passer rating of", rating())
