@@ -51,6 +51,8 @@ def rating():
 	for i in myList:
 		if i > 2.375:
 			listSum += 2.375
+		else:
+			listSum +=i 
 
 	rate = float((listSum / 6) * 100)
 	roundRate = float(round(rate, 1))
